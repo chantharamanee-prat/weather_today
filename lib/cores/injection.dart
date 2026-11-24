@@ -17,7 +17,7 @@ Future<void> injectService() async {
     return dioNw;
   });
 
-  locator.registerLazySingleton<ConnectionInfoImpl>(() => ConnectionInfoImpl());
+  locator.registerLazySingleton<ConnectionInfo>(() => ConnectionInfoImpl());
   locator.registerLazySingleton<LocalCachedImpl>(() => LocalCachedImpl());
 
   injectWeather();

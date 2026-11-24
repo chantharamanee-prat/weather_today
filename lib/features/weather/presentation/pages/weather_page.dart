@@ -96,6 +96,8 @@ class _WeatherDetails extends StatelessWidget {
             textAlign: TextAlign.center,
             style: textTheme.titleMedium,
           ),
+          if (weather.iconUrl.isNotEmpty)
+            Center(child: WeatherIcon(url: weather.iconUrl, size: 80)),
           Text(
             '${weather.temp}°C',
             textAlign: TextAlign.center,
@@ -105,6 +107,19 @@ class _WeatherDetails extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          if (weather.feelsLike.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                [
+                  'Feels like ${weather.feelsLike}°C',
+                  if (weather.lastUpdated.isNotEmpty)
+                    'Updated ${weather.lastUpdated}',
+                ].join(' · '),
+                textAlign: TextAlign.center,
+                style: textTheme.bodyMedium,
+              ),
+            ),
           Text('Current conditions', style: textTheme.titleMedium),
           WeatherInfoCard(
             children: [
@@ -128,6 +143,11 @@ class _WeatherDetails extends StatelessWidget {
               ),
             ],
           ),
+          if (weather.hourly.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            Text('Hourly forecast', style: textTheme.titleMedium),
+            WeatherForecast(hourly: weather.hourly, color: color),
+          ],
         ],
       ),
     );

@@ -16,6 +16,14 @@ import 'package:weather_today/main.dart';
 import 'package:weather_today/shared/params/get_weather_params.dart';
 
 void main() {
+  test('Resolves the weather bloc with production dependencies', () async {
+    addTearDown(locator.reset);
+    await injectService();
+
+    final bloc = locator<WeatherBloc>();
+    addTearDown(bloc.close);
+  });
+
   final colorsByTemperature = {
     '19.9': const Color(0xFF219EBC),
     '20': Colors.pink.shade400,
@@ -93,9 +101,20 @@ void main() {
       humidity: '61',
       visibleKM: '10.0',
       condition: 'Partly cloudy',
+      feelsLike: '10.1',
+      lastUpdated: '13:30',
+      hourly: [
+        HourlyForecastEntity(time: '13:00', temp: '12.5', iconUrl: ''),
+        HourlyForecastEntity(time: '14:00', temp: '13.0', iconUrl: ''),
+      ],
     )));
     await tester.pumpAndSettle();
 
+    expect(find.text('Feels like 10.1°C · Updated 13:30'), findsOneWidget);
+    expect(find.text('Hourly forecast'), findsOneWidget);
+    expect(find.text('Now'), findsOneWidget);
+    expect(find.text('14:00'), findsOneWidget);
+    expect(find.text('13.0°'), findsOneWidget);
     expect(find.text('New York'), findsOneWidget);
     expect(find.text('Partly cloudy'), findsOneWidget);
     expect(find.text('12.5°C'), findsOneWidget);
