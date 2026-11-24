@@ -13,10 +13,19 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final backgroundColor = Colors.pink.shade400;
 
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
+        final temperature = switch (state) {
+          WeatherLoaded(:final weather) => double.tryParse(weather.temp),
+          _ => null,
+        };
+        final backgroundColor = switch (temperature) {
+          double value when value > 30 => Colors.yellow.shade600,
+          double value when value < 20 => const Color(0xFF219EBC),
+          _ => Colors.pink.shade400,
+        };
+
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor,
