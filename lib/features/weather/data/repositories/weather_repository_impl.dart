@@ -39,7 +39,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
         final localData = await localDataSource.getWeather(params: params);
         return Right(localData);
       } on CacheException {
-        return Left(CacheFailure(errorMessage: "No loca data found."));
+        return Left(CacheFailure(errorMessage: "No cached weather available."));
       }
     }
   }

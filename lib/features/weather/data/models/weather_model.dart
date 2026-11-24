@@ -21,6 +21,17 @@ class WeatherModel extends WeatherEntity {
     );
   }
 
+  factory WeatherModel.fromCacheJson(Map<String, dynamic> json) {
+    return WeatherModel(
+      city: json['city'] as String,
+      condition: json['condition'] as String,
+      humidity: json['humidity'] as String,
+      temp: json['temp'] as String,
+      visibleKM: json['visibleKM'] as String,
+      windKPH: json['windKPH'] as String,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'city': city,
         'condition': condition,

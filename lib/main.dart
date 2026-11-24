@@ -4,6 +4,7 @@ import 'package:weather_today/cores/routes/router.dart';
 import 'package:weather_today/cores/theme/theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await injectService();
   runApp(const App());
 }

@@ -36,13 +36,14 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
 
   @override
   Future<WeatherModel> getWeather({required GetWeatherParams params}) async {
-    var cacheResult = await localCache.get(
-      "$_cachedWeatherPrefix${params.toString()}",
-    );
-
-    if (cacheResult == null) {
-      throw CacheException();
+    try {
+      final cacheResult = await localCache.get('$_cachedWeatherPrefix$params');
+      if (cacheResult != null) {
+        return WeatherModel.fromCacheJson(json.decode(cacheResult));
+      }
+    } catch (error) {
+      _logger.warning('Could not read cached weather.', error);
     }
-    return WeatherModel.fromJson(json.decode(cacheResult));
+    throw CacheException();
   }
 }
