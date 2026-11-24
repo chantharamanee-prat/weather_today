@@ -4,6 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
+Create a `.env` file in the project root using `.env.example` as a template.
+Set `WEATHER_API_KEY` to your WeatherAPI.com key. VS Code loads `.env` when
+you launch the app. From a terminal, run:
+
+```sh
+flutter run --dart-define-from-file=.env
+```
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:

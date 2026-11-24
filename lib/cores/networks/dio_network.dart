@@ -10,7 +10,7 @@ class DioNetwork {
       baseUrl: weatherUrl,
       connectTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 30),
-      
+      queryParameters: {'key': weatherApiKey},
     ));
 
     // add interceptor

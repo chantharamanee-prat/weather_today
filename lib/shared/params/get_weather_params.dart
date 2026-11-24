@@ -5,7 +5,7 @@ class GetWeatherParams {
 
 
   Map<String,dynamic> toJson() => {
-    'city': city,
+    'q': city,
   };
 
   // override toString for cached propose
